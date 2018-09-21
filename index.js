@@ -4,6 +4,17 @@ const got = require("got");
 const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 const baseLink = "https://www.icloud.com/shortcuts/";
 
+class Shortcut {
+	constructor(data) {
+		this.name = data.fields.name.value;
+		this.id = response.body.id;
+	}
+	
+	getLink() {
+		return baseLink + this.id;
+	}
+}
+
 function shortcutFromURL(url = "https://example.org") {
 	const parsedUrl = new URL(url);
 	const path = parsedUrl.pathname.split("/").splice(1);
@@ -20,15 +31,13 @@ function getShortcutDetails(id) {
 		got(baseURL + id, {
 			json: true,
 		}).then(response => {
-			resolve({
-				name: response.body.fields.name.value,
-				link: baseLink + response.body.id,
-			});
+			resolve(new Shortcut(response.body));
 		}).catch(reject);
 	});
 }
 
 module.exports = {
+	Shortcut,
 	shortcutFromURL,
 	getShortcutDetails,
 };
