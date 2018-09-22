@@ -72,7 +72,7 @@ class Shortcut {
  * @param {string} url The landing page URL of a shortcut.
  * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL.
  */
-function shortcutFromURL(url = "https://example.org") {
+function idFromURL(url = "https://example.org") {
 	try {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
@@ -104,6 +104,6 @@ function getShortcutDetails(id) {
 
 module.exports = {
 	Shortcut,
-	shortcutFromURL,
+	idFromURL,
 	getShortcutDetails,
 };
