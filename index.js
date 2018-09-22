@@ -68,6 +68,21 @@ class Shortcut {
 }
 
 /**
+ * Gets a shortcut from its ID.
+ * @param {string} id The hexadecimal ID of the shortcut.
+ * @returns {Promise<Shortcut>} The shortcut represented by an ID.
+ */
+function getShortcutDetails(id) {
+	return new Promise((resolve, reject) => {
+		got(baseURL + id, {
+			json: true,
+		}).then(response => {
+			resolve(new Shortcut(response.body, id));
+		}).catch(reject);
+	});
+}
+
+/**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
  * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL.
@@ -91,23 +106,8 @@ function idFromURL(url = "https://example.org") {
 	}
 }
 
-/**
- * Gets a shortcut from its ID.
- * @param {string} id The hexadecimal ID of the shortcut.
- * @returns {Promise<Shortcut>} The shortcut represented by an ID.
- */
-function getShortcutDetails(id) {
-	return new Promise((resolve, reject) => {
-		got(baseURL + id, {
-			json: true,
-		}).then(response => {
-			resolve(new Shortcut(response.body, id));
-		}).catch(reject);
-	});
-}
-
 module.exports = {
 	Shortcut,
-	idFromURL,
 	getShortcutDetails,
+	idFromURL,
 };
