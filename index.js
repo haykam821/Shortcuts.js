@@ -39,14 +39,21 @@ class Shortcut {
 		this.modificationDate = new Date(data.modified.timestamp);
 
 		/**
-		 * The URL to download the shortcut's icon.
-		 */
-		this.imageURL = data.fields.icon.value.downloadURL;
-
-		/**
 		 * The URL to download the shortcut as a PLIST.
 		 */
 		this.downloadURL = data.fields.shortcut.value.downloadURL;
+
+		/**
+		 * Details of the icon of this shortcut.
+		 * @property {number} color The color of the shortcut's icon, with transparency.
+		 * @property {string} downloadURL The URL to download the shortcut's icon.
+		 * @property {number} glyph The ID of the glyph.
+		 */
+		this.icon = {
+			color: data.fields.icon_color.value,
+			downloadURL: data.fields.icon.value.downloadURL,
+			glyph: data.fields.icon_glyph.value,
+		};
 
 		/**
 		 * The full API response.
