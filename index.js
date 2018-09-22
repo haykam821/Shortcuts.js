@@ -1,9 +1,20 @@
 const { URL } = require("url");
 
 const got = require("got");
+
+/**
+ * The base URL to the API for getting a shortcut.
+ */
 const baseURL = "https://www.icloud.com/shortcuts/api/records/";
+
+/**
+ * The base URL for the shortcut's landing page.
+ */
 const baseLink = "https://www.icloud.com/shortcuts/";
 
+/**
+ * A shortcut.
+ */
 class Shortcut {
 	constructor(data, id) {
 		/**
@@ -56,6 +67,11 @@ class Shortcut {
 	}
 }
 
+/**
+ * Gets a shortcut ID from its URL.
+ * @param {string} url The landing page URL of a shortcut.
+ * @returns {(boolean|string)} The ID, or false if unparsable.
+ */
 function shortcutFromURL(url = "https://example.org") {
 	const parsedUrl = new URL(url);
 	const path = parsedUrl.pathname.split("/").splice(1);
@@ -67,6 +83,11 @@ function shortcutFromURL(url = "https://example.org") {
 	}
 }
 
+/**
+ * Gets a shortcut from its ID.
+ * @param {string} id The hexadecimal ID of the shortcut.
+ * @returns {Promise<Shortcut>} The shortcut represented by an ID.
+ */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
 		got(baseURL + id, {
