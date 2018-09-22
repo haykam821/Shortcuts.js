@@ -82,8 +82,12 @@ function idFromURL(url = "https://example.org") {
 		} else {
 			return false;
 		}
-	} catch {
-		return false;
+	} catch (error) {
+		if (error.code === "ERR_INVALID_URL") {
+			return false;
+		} else {
+			throw error;
+		}
 	}
 }
 
