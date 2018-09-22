@@ -26,7 +26,7 @@ class Shortcut {
 		 * The long description of the shortcut.
 		 * This does not seem to be settable by users.
 		 */
-		this.longDescription = data.fields.longDescription.value;
+		this.longDescription = data.fields.longDescription && data.fields.longDescription.value;
 
 		/**
 		 * The date that the shortcut was created.
@@ -70,15 +70,19 @@ class Shortcut {
 /**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
- * @returns {(boolean|string)} The ID, or false if unparsable.
+ * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL.
  */
 function shortcutFromURL(url = "https://example.org") {
-	const parsedUrl = new URL(url);
-	const path = parsedUrl.pathname.split("/").splice(1);
-	
-	if (parsedUrl.host === "www.icloud.com" && path[0] === "shortcuts") {
-		return path[1];
-	} else {
+	try {
+		const parsedUrl = new URL(url);
+		const path = parsedUrl.pathname.split("/").splice(1);
+		
+		if (parsedUrl.host === "www.icloud.com" && path[0] === "shortcuts") {
+			return path[1];
+		} else {
+			return false;
+		}
+	} catch {
 		return false;
 	}
 }
