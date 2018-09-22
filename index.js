@@ -4,11 +4,13 @@ const got = require("got");
 
 /**
  * The base URL to the API for getting a shortcut.
+ * @type {string}
  */
 const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 
 /**
  * The base URL for the shortcut's landing page.
+ * @type {string}
  */
 const baseLink = "https://www.icloud.com/shortcuts/";
 
@@ -19,42 +21,50 @@ class Shortcut {
 	constructor(data, id) {
 		/**
 		 * The user-specified name of the shortcut.
+		 * @type {string}
 		 */
 		this.name = data.fields.name.value;
 
 		/**
 		 * The long description of the shortcut.
 		 * This does not seem to be settable by users.
+		 * @type {string}
 		 */
 		this.longDescription = data.fields.longDescription && data.fields.longDescription.value;
 
 		/**
 		 * The date that the shortcut was created.
+		 * @type {Date}
 		 */
 		this.creationDate = new Date(data.created.timestamp);
 
 		/**
 		 * The date that the shortcut was last modified on.
+		 * @type {Date}
 		 */
 		this.modificationDate = new Date(data.modified.timestamp);
 
 		/**
 		 * The URL to download the shortcut's icon.
+		 * @type {string}
 		 */
 		this.imageURL = data.fields.icon.value.downloadURL;
 
 		/**
 		 * The URL to download the shortcut as a PLIST.
+		 * @type {string}
 		 */
 		this.downloadURL = data.fields.shortcut.value.downloadURL;
 
 		/**
 		 * The full API response.
+		 * @type {object}
 		 */
 		this.response = data;
 
 		/**
 		 * The ID of the shortcut.
+		 * @type {string}
 		 */
 		this.id = id;
 	}
