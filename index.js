@@ -58,9 +58,10 @@ class Shortcut {
 		 */
 		this.id = id;
 	}
-	
+
 	/**
-	 * Returns a link to the landing page for the shortcut.
+	 * Gets the shortcut's landing page URL.
+	 * @returns {string} A URL to the landing page for the shortcut.
 	 */
 	getLink() {
 		return baseLink + this.id;
@@ -91,7 +92,7 @@ function idFromURL(url = "https://example.org") {
 	try {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
-		
+
 		if (parsedUrl.host === "www.icloud.com" && path[0] === "shortcuts") {
 			return path[1];
 		} else {
