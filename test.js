@@ -11,7 +11,7 @@ describe("idFromURL", () => {
 	it("returns string when valid", () => {
 		assert.isString(idFromURL(id));
 	});
-	
+
 	it("gets id if input is just id", () => {
 		assert.strictEqual(idFromURL(id), id);
 	});
