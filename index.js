@@ -116,9 +116,10 @@ const hosts = [
 /**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
+ * @param {boolean} allowSingle If true, allows the ID by itself.
  * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL or shortcut ID.
  */
-function idFromURL(url = "https://example.org") {
+function idFromURL(url = "https://example.org", allowSingle = true) {
 	try {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
@@ -130,8 +131,12 @@ function idFromURL(url = "https://example.org") {
 		}
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
-			const matched = url.match(thing);
-			return matched === null ? false : matched[0];
+			if (allowSingle) {
+				return false;
+			} else {
+				const matched = url.match(thing);
+				return matched === null ? false : matched[0];
+			}
 		} else {
 			throw error;
 		}
