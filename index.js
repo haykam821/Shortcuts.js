@@ -106,6 +106,14 @@ function getShortcutDetails(id) {
 }
 
 /**
+ * A list of hosts usable in a shortcut URL.
+ */
+const hosts = [
+	"www.icloud.com",
+	"icloud.com",
+];
+
+/**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
  * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL or shortcut ID.
@@ -115,7 +123,7 @@ function idFromURL(url = "https://example.org") {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
 
-		if (parsedUrl.host === "www.icloud.com" && path[0] === "shortcuts") {
+		if (hosts.includes(parsedUrl.host) && path[0] === "shortcuts") {
 			return path[1];
 		} else {
 			return false;
