@@ -15,6 +15,12 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 const baseLink = "https://www.icloud.com/shortcuts/";
 
 /**
+ * A regular expression
+ * @type {RegExp}
+ */
+const thing = /^[0-9A-F]{32}$/i;
+
+/**
  * A shortcut.
  */
 class Shortcut {
@@ -102,7 +108,7 @@ function getShortcutDetails(id) {
 /**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
- * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL.
+ * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL or shortcut ID.
  */
 function idFromURL(url = "https://example.org") {
 	try {
@@ -116,7 +122,8 @@ function idFromURL(url = "https://example.org") {
 		}
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
-			return false;
+			const matched = url.match(thing);
+			return matched === null ? false : matched;
 		} else {
 			throw error;
 		}
