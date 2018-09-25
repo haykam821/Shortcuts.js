@@ -12,7 +12,7 @@ describe("idFromURL", () => {
 		it("returns string when valid", () => {
 			assert.isString(idFromURL(id));
 		});
-		it("returns boolean when invalid", () => {
+		it("returns false when invalid", () => {
 			assert.isFalse(idFromURL("this is not valid!"));
 		});
 	});
