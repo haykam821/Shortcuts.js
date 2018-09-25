@@ -123,7 +123,7 @@ function idFromURL(url = "https://example.org") {
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
 			const matched = url.match(thing);
-			return matched === null ? false : matched;
+			return matched === null ? false : matched[0];
 		} else {
 			throw error;
 		}
