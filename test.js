@@ -3,25 +3,25 @@
 const chai = require("chai");
 const assert = chai.assert;
 
-const shortcuts = require(".");
+const { idFromURL } = require(".");
 
 const id = "23438d929d9290f";
-const fromID = [
-	"icloud.com/" + id,
-	"https://icloud.com/" + id,
-	"http://icloud.com/" + id,
-	id,
-];
 
 describe("idFromURL", () => {
-	fromID.forEach(input => {
-		const output = shortcuts.idFromURL(input);
+	it("returns string when valid", () => {
+		assert.isString(idFromURL(id));
+	});
 	
-		it("returns a string", () => {
-			assert.isString(output);
-		});
-		it("is same as the actual id", () => {
-			assert.strictEqual(output, id);
-		});
+	it("gets id if input is just id", () => {
+		assert.strictEqual(idFromURL(id), id);
+	});
+	it("gets id if input has http protocol", () => {
+		assert.strictEqual(idFromURL("http://icloud.com/shortcuts/" + id), id);
+	});
+	it("gets id if input has https protocol", () => {
+		assert.strictEqual(idFromURL("https://icloud.com/shortcuts/" + id), id);
+	});
+	it("gets id if input doesn't specify protocol", () => {
+		assert.strictEqual(idFromURL("http://icloud.com/shortcuts/" + id), id);
 	});
 });
