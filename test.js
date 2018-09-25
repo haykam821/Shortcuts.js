@@ -5,7 +5,7 @@ const assert = chai.assert;
 
 const { idFromURL } = require(".");
 
-const id = "23438d929d9290f";
+const id = "e04c0db9ef974178b60f94518daeb8f2";
 
 describe("idFromURL", () => {
 	it("returns string when valid", () => {
