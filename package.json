@@ -14,6 +14,7 @@
 	},
 	"homepage": "https://github.com/haykam821/Shortcuts.js#readme",
 	"dependencies": {
+		"bplist-parser": "^0.1.1",
 		"got": "^9.2.2"
 	},
 	"devDependencies": {
