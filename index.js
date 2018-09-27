@@ -16,6 +16,21 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 const baseLink = "https://www.icloud.com/shortcuts/";
 
 /**
+ * A shortcut metadata.
+ */
+class ShortcutMetadata {
+	constructor(object) {
+		// Not sure if we keep the native Apple names for the properties?
+		this.WFWorkflowClientRelease = object.WFWorkflowClientRelease;
+		this.WFWorkflowMinimumClientVersion = object.WFWorkflowMinimumClientVersion;
+		this.WFWorkflowIcon = object.WFWorkflowIcon;
+		this.WFWorkflowImportQuestions = object.WFWorkflowImportQuestions;
+		this.WFWorkflowTypes = object.WFWorkflowTypes;
+		this.WFWorkflowInputContentItemClasses = object.WFWorkflowInputContentItemClasses;
+	}
+}
+
+/**
  * A shortcut.
  */
 class Shortcut {
@@ -78,10 +93,10 @@ class Shortcut {
 	}
 
 	/**
-	 * Gets the shortcuts metadata from the downloadURL
-	 * @returns {Object} An object with all the metadata about the shortcut
+	 * Gets the shortcuts metadata from the downloadURL.
+	 * @returns {ShortcutMetadata} An object with all the metadata about the shortcut.
 	 */
-	getMetaData() {
+	getMetadata() {
 		return new Promise((resolve, reject) => {
 			got(this.downloadURL, {
 				encoding: null,
@@ -89,7 +104,10 @@ class Shortcut {
 
 				const buffer = Buffer.from(response.body);
 				const json = bplist.parseBuffer(buffer);
-				resolve(json);
+
+				const metadata = new ShortcutMetadata(json[0]);
+
+				resolve(metadata);
 
 			}).catch(reject);
 		});
