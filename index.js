@@ -1,6 +1,7 @@
 const { URL } = require("url");
 
 const got = require("got");
+const bplist = require("bplist-parser");
 
 /**
  * The base URL to the API for getting a shortcut.
@@ -73,6 +74,26 @@ class Shortcut {
 		 * @type {string}
 		 */
 		this.id = id;
+
+	}
+
+	/**
+	 * Gets the shortcut's metadata from the downloadURL
+	 * @returns {string} An object with all the metatadat about the shortcut
+	 */
+	getMetaData() {
+		return new Promise((resolve, reject) => {
+			got(this.downloadURL, {
+				encoding: null
+			})
+			.then(response => {
+
+				const buffer = new Buffer(response.body);
+				const json = bplist.parseBuffer(buffer);
+				resolve(json);
+
+			}).catch(reject);
+		});
 	}
 
 	/**
@@ -91,11 +112,13 @@ class Shortcut {
  */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
+
 		got(baseURL + id, {
 			json: true,
 		}).then(response => {
 			resolve(new Shortcut(response.body, id));
-		}).catch(reject);
+		})
+		.catch(reject);
 	});
 }
 
