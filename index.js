@@ -19,14 +19,19 @@ const baseLink = "https://www.icloud.com/shortcuts/";
  * A shortcut metadata.
  */
 class ShortcutMetadata {
-	constructor(object) {
-		// Not sure if we keep the native Apple names for the properties?
-		this.WFWorkflowClientRelease = object.WFWorkflowClientRelease;
-		this.WFWorkflowMinimumClientVersion = object.WFWorkflowMinimumClientVersion;
-		this.WFWorkflowIcon = object.WFWorkflowIcon;
-		this.WFWorkflowImportQuestions = object.WFWorkflowImportQuestions;
-		this.WFWorkflowTypes = object.WFWorkflowTypes;
-		this.WFWorkflowInputContentItemClasses = object.WFWorkflowInputContentItemClasses;
+	constructor(metadata) {
+		this.client = {
+			minimumVersion: metadata.WFWorkflowMinimumClientVersion,
+			version: metadata.WFWorkflowClientRelease,
+		};
+		this.icon = {
+			startColor: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
+			imageData: metadata.WFWorkflowIcon.WFWorkflowIconImageData,
+			glyphNumber: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
+		};
+		this.importQuestions = metadata.WFWorkflowImportQuestions;
+		this.types = metadata.WFWorkflowTypes;
+		this.inputContentItemClasses = metadata.WFWorkflowInputContentItemClasses;
 	}
 }
 
@@ -62,8 +67,8 @@ class Shortcut {
 
 		/**
 		 * The URL to download the shortcut as a PLIST.
-     * @type {string}
-     */
+		 * @type {string}
+		 */
 		this.downloadURL = data.fields.shortcut.value.downloadURL;
 
 		/**
@@ -101,14 +106,12 @@ class Shortcut {
 			got(this.downloadURL, {
 				encoding: null,
 			}).then(response => {
-
 				const buffer = Buffer.from(response.body);
 				const json = bplist.parseBuffer(buffer);
 
 				const metadata = new ShortcutMetadata(json[0]);
 
 				resolve(metadata);
-
 			}).catch(reject);
 		});
 	}
@@ -129,7 +132,6 @@ class Shortcut {
  */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
-
 		got(baseURL + id, {
 			json: true,
 		}).then(response => {
