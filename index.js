@@ -78,8 +78,8 @@ class Shortcut {
 	}
 
 	/**
-	 * Gets the shortcut's metadata from the downloadURL
-	 * @returns {string} An object with all the metatadat about the shortcut
+	 * Gets the shortcuts metadata from the downloadURL
+	 * @returns {Object} An object with all the metadata about the shortcut
 	 */
 	getMetaData() {
 		return new Promise((resolve, reject) => {
