@@ -25,9 +25,9 @@ class ShortcutMetadata {
 			version: metadata.WFWorkflowClientRelease,
 		};
 		this.icon = {
-			startColor: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
-			imageData: metadata.WFWorkflowIcon.WFWorkflowIconImageData,
 			glyphNumber: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
+			imageData: metadata.WFWorkflowIcon.WFWorkflowIconImageData,
+			startColor: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
 		};
 		this.importQuestions = metadata.WFWorkflowImportQuestions;
 		this.types = metadata.WFWorkflowTypes;
