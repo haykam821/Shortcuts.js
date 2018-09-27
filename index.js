@@ -84,11 +84,10 @@ class Shortcut {
 	getMetaData() {
 		return new Promise((resolve, reject) => {
 			got(this.downloadURL, {
-				encoding: null
-			})
-			.then(response => {
+				encoding: null,
+			}).then(response => {
 
-				const buffer = new Buffer(response.body);
+				const buffer = Buffer.from(response.body);
 				const json = bplist.parseBuffer(buffer);
 				resolve(json);
 
@@ -117,8 +116,7 @@ function getShortcutDetails(id) {
 			json: true,
 		}).then(response => {
 			resolve(new Shortcut(response.body, id));
-		})
-		.catch(reject);
+		}).catch(reject);
 	});
 }
 
