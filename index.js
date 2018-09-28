@@ -76,7 +76,7 @@ class ImportQuestion {
 class ShortcutMetadata {
 	constructor(metadata) {
 		const minVer = metadata.WFWorkflowMinimumClientVersion;
-		
+
 		/**
 		 * Details of the client used to create this shortcut.
 		 * @property {?number} minimumVersion The minimum build number of Shortcuts usable to manage this shortcut.
