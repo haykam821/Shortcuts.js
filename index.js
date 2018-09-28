@@ -75,14 +75,16 @@ class ImportQuestion {
  */
 class ShortcutMetadata {
 	constructor(metadata) {
+		const minVer = metadata.WFWorkflowMinimumClientVersion;
+		
 		/**
-		 * Details of the icon of this shortcut.
-		 * @property {number} minimumVersion The Shortcut app version.
-		 * @property {string} release The Shortcut app version.
-		 * @property {number} version The Shortcut minumum version.
+		 * Details of the client used to create this shortcut.
+		 * @property {?number} minimumVersion The minimum build number of Shortcuts usable to manage this shortcut.
+		 * @property {string} release The release of Shortcuts that was used to manage this shortcut.
+		 * @property {number} version The build number of Shortcuts that was used to managed this shortcut.
 		 */
 		this.client = {
-			minimumVersion: parseInt(metadata.WFWorkflowMinimumClientVersion),
+			minimumVersion: minVer ? parseInt(minVer) : null,
 			release: metadata.WFWorkflowClientRelease,
 			version: parseInt(metadata.WFWorkflowClientVersion),
 		};
@@ -202,7 +204,6 @@ class Shortcut {
 				const json = bplist.parseBuffer(buffer);
 
 				const metadata = new ShortcutMetadata(json[0]);
-
 				resolve(metadata);
 			}).catch(reject);
 		});
