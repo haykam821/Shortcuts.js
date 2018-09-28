@@ -22,11 +22,15 @@ const baseLink = "https://www.icloud.com/shortcuts/";
 class Action {
 	constructor(action) {
 		/**
-		 * @type {string} A namespace of the action.
+		 * A namespace of the action.
+		 * @type {string}
 		 */
 		this.identifier = action.WFWorkflowActionIdentifier;
 
 		/**
+		 * An object denoting a shortcut action.
+		 * The propeties in the object are not renamed and follow the appple naming convention.
+		 * Example: {"WFCommentActionText":"example value"}
 		 * @type {Object[]}
 		 */
 		this.parameters = action.WFWorkflowActionParameters;
@@ -51,7 +55,7 @@ class ImportQuestion {
 		this.category = question.Category;
 
 		/**
-		 * The action index of the qeuestion.
+		 * The action index of the question.
 		 * @type {number}
 		 */
 		this.actionIndex = question.ActionIndex;
@@ -111,7 +115,7 @@ class ShortcutMetadata {
 
 		/**
 		 * An unknown property.
-		 * @type {array}
+		 * @type {string[]}
 		 */
 		this.types = metadata.WFWorkflowTypes;
 
