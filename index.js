@@ -262,9 +262,9 @@ function idFromURL(url = "https://example.org") {
 
 module.exports = {
 	Action,
+	ImportQuestion,
 	Shortcut,
 	ShortcutMetadata,
-	ImportQuestion,
 	getShortcutDetails,
 	idFromURL,
 };
