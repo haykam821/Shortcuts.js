@@ -195,7 +195,7 @@ class Shortcut {
 	}
 
 	/**
-	 * Gets the shortcuts metadata from the downloadURL.
+	 * Downloads and parses the shortcut's metadata.
 	 * @returns {Promise<ShortcutMetadata>} An object with all the metadata about the shortcut.
 	 */
 	getMetadata() {
