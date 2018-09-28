@@ -15,10 +15,10 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 const baseLink = "https://www.icloud.com/shortcuts/";
 
 /**
- * A regular expression
+ * A regular expression to match a single shortcut ID.
  * @type {RegExp}
  */
-const thing = /^[0-9A-F]{32}$/i;
+const singleIDRegex = /^[0-9A-F]{32}$/i;
 
 /**
  * A shortcut.
@@ -132,7 +132,7 @@ function idFromURL(url = "https://example.org", allowSingle = true) {
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
 			if (allowSingle) {
-				const matched = url.match(thing);
+				const matched = url.match(singleIDRegex);
 				return matched === null ? false : matched[0];
 			} else {
 				return false;
