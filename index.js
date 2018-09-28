@@ -15,22 +15,78 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
  */
 const baseLink = "https://www.icloud.com/shortcuts/";
 
+
 /**
- * A shortcut metadata.
+ * A single action in a shortcut.
+ */
+class Action {
+	constructor(action) {
+		/**
+		 * @type {string} A namespace of the action.
+		 */
+		this.identifier = action.WFWorkflowActionIdentifier;
+
+		/**
+		 * @type {Object[]}
+		 */
+		this.parameters = action.WFWorkflowActionParameters;
+	}
+}
+
+/**
+ * A single question to be asked when importing a shortcut into the Shortcuts app.
+ */
+class ImportQuestion {
+	constructor(question) {
+		this.parameterKey = question.ParameterKey;
+    	this.category = question.Category;
+    	this.actionIndex = question.ActionIndex;
+		this.text = question.Text;
+		this.defaultValue = question.DefaultValue;
+	}
+}
+
+/**
+ * The shortcut file.
  */
 class ShortcutMetadata {
 	constructor(metadata) {
+		/**
+		 * Details of the icon of this shortcut.
+		 * @property {number} minimumVersion The Shortcut app version.
+		 * @property {number} version The Shortcut minumum version.
+		 * @property {string} release The Shortcut app version.
+		 */
 		this.client = {
-			minimumVersion: metadata.WFWorkflowMinimumClientVersion,
-			version: metadata.WFWorkflowClientRelease,
+			minimumVersion: parseInt(metadata.WFWorkflowMinimumClientVersion),
+			version: parseInt(metadata.WFWorkflowClientVersion),
+			release: metadata.WFWorkflowClientRelease,
 		};
+
+		const imgData = metadata.WFWorkflowIcon.WFWorkflowIconImageData; 
+
+		/**
+		 * Details of the icon of this shortcut.
+		 * @property {number} color The color of the shortcut's icon, with transparency.
+		 * @property {?Buffer} imageData The base64 data that makes up the custom image.
+		 * @property {number} glyph The ID of the glyph.
+		 */
 		this.icon = {
-			glyphNumber: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
-			imageData: metadata.WFWorkflowIcon.WFWorkflowIconImageData,
-			startColor: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
+			color: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
+			imageData: imgData.length >= 0 ? new Buffer(imgData, "base64") : null,
+			glyph: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
 		};
-		this.importQuestions = metadata.WFWorkflowImportQuestions;
+
+		/**
+		 * The user-specified name of the shortcut.
+		 * @type {ImportQuestion[]}
+		 */
+		this.importQuestions = metadata.WFWorkflowImportQuestions.map(question => new ImportQuestion(question));
+
 		this.types = metadata.WFWorkflowTypes;
+
+		this.actions = metadata.WFWorkflowActions.map(action => new Action(action));
+
 		this.inputContentItemClasses = metadata.WFWorkflowInputContentItemClasses;
 	}
 }
