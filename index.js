@@ -29,7 +29,7 @@ class Action {
 
 		/**
 		 * An object denoting a shortcut action.
-		 * The propeties in this object are not renamed and follow the apple naming convention.
+		 * The properties in this object are not renamed and follow the Apple naming convention.
 		 * @type {Object[]}
 		 */
 		this.parameters = action.WFWorkflowActionParameters;
