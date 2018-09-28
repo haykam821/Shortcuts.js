@@ -39,8 +39,8 @@ class Action {
 class ImportQuestion {
 	constructor(question) {
 		this.parameterKey = question.ParameterKey;
-    	this.category = question.Category;
-    	this.actionIndex = question.ActionIndex;
+		this.category = question.Category;
+		this.actionIndex = question.ActionIndex;
 		this.text = question.Text;
 		this.defaultValue = question.DefaultValue;
 	}
@@ -54,27 +54,27 @@ class ShortcutMetadata {
 		/**
 		 * Details of the icon of this shortcut.
 		 * @property {number} minimumVersion The Shortcut app version.
-		 * @property {number} version The Shortcut minumum version.
 		 * @property {string} release The Shortcut app version.
+		 * @property {number} version The Shortcut minumum version.
 		 */
 		this.client = {
 			minimumVersion: parseInt(metadata.WFWorkflowMinimumClientVersion),
-			version: parseInt(metadata.WFWorkflowClientVersion),
 			release: metadata.WFWorkflowClientRelease,
+			version: parseInt(metadata.WFWorkflowClientVersion),
 		};
 
-		const imgData = metadata.WFWorkflowIcon.WFWorkflowIconImageData; 
+		const imgData = metadata.WFWorkflowIcon.WFWorkflowIconImageData;
 
 		/**
 		 * Details of the icon of this shortcut.
 		 * @property {number} color The color of the shortcut's icon, with transparency.
-		 * @property {?Buffer} imageData The base64 data that makes up the custom image.
 		 * @property {number} glyph The ID of the glyph.
+		 * @property {?Buffer} imageData The base64 data that makes up the custom image.
 		 */
 		this.icon = {
 			color: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
-			imageData: imgData.length >= 0 ? new Buffer(imgData, "base64") : null,
 			glyph: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
+			imageData: imgData.length >= 0 ? Buffer.from(imgData, "base64") : null,
 		};
 
 		/**
@@ -83,10 +83,22 @@ class ShortcutMetadata {
 		 */
 		this.importQuestions = metadata.WFWorkflowImportQuestions.map(question => new ImportQuestion(question));
 
+		/**
+		 * An unknown property.
+		 * @type {array}
+		 */
 		this.types = metadata.WFWorkflowTypes;
 
+		/**
+		 * A list of actions that the shortcut performs.
+		 * @type {Action[]}
+		 */
 		this.actions = metadata.WFWorkflowActions.map(action => new Action(action));
 
+		/**
+		 * A list of services that the shortcut uses.
+		 * @type {array}
+		 */
 		this.inputContentItemClasses = metadata.WFWorkflowInputContentItemClasses;
 	}
 }
@@ -155,7 +167,7 @@ class Shortcut {
 
 	/**
 	 * Gets the shortcuts metadata from the downloadURL.
-	 * @returns {ShortcutMetadata} An object with all the metadata about the shortcut.
+	 * @returns {Promise<ShortcutMetadata>} An object with all the metadata about the shortcut.
 	 */
 	getMetadata() {
 		return new Promise((resolve, reject) => {
