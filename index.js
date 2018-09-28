@@ -132,10 +132,10 @@ function idFromURL(url = "https://example.org", allowSingle = true) {
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
 			if (allowSingle) {
-				return false;
-			} else {
 				const matched = url.match(thing);
 				return matched === null ? false : matched[0];
+			} else {
+				return false;
 			}
 		} else {
 			throw error;
