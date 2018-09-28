@@ -62,3 +62,6 @@ typings/
 
 # test file
 test.js
+
+# ignore eslint ignore
+.eslintignore
