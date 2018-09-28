@@ -38,10 +38,34 @@ class Action {
  */
 class ImportQuestion {
 	constructor(question) {
+		/**
+		 * An unknown property.
+		 * @type {string}
+		 */
 		this.parameterKey = question.ParameterKey;
+
+		/**
+		 * The category of the question.
+		 * @type {string}
+		 */
 		this.category = question.Category;
+
+		/**
+		 * The action index of the qeuestion.
+		 * @type {number}
+		 */
 		this.actionIndex = question.ActionIndex;
+
+		/**
+		 * The question to be asked.
+		 * @type {string}
+		 */
 		this.text = question.Text;
+
+		/**
+		 * The default value for the question to be asked.
+		 * @type {string}
+		 */
 		this.defaultValue = question.DefaultValue;
 	}
 }
