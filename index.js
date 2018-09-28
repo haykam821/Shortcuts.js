@@ -29,8 +29,7 @@ class Action {
 
 		/**
 		 * An object denoting a shortcut action.
-		 * The propeties in the object are not renamed and follow the appple naming convention.
-		 * Example: {"WFCommentActionText":"example value"}
+		 * The propeties in this object are not renamed and follow the apple naming convention.
 		 * @type {Object[]}
 		 */
 		this.parameters = action.WFWorkflowActionParameters;
@@ -127,7 +126,7 @@ class ShortcutMetadata {
 
 		/**
 		 * A list of services that the shortcut uses.
-		 * @type {array}
+		 * @type {string[]}
 		 */
 		this.inputContentItemClasses = metadata.WFWorkflowInputContentItemClasses;
 	}
