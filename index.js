@@ -97,10 +97,28 @@ class Shortcut {
  */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
+		// Reject if the ID wasn't a string.
+		if (typeof id !== "string") {
+			const error = new TypeError("The ID must be a string.");
+			error.code = "SHORTCUT_ID_NOT_STRING";
+
+			return reject(error);
+		}
+
 		got(baseURL + id, {
 			json: true,
 		}).then(response => {
-			resolve(new Shortcut(response.body, id));
+			const body = response.body;
+
+			// Reject if the shortcut was not found.
+			if (body.error) {
+				const error = new Error("API error: " + error.reason);
+				error.code = "ICLOUD_API_ERROR";
+
+				return reject(error);
+			}
+
+			return resolve(new Shortcut(response.body, id));
 		}).catch(reject);
 	});
 }

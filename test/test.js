@@ -3,31 +3,27 @@
 const chai = require("chai");
 const assert = chai.assert;
 
-const { idFromURL, getShortcutDetails } = require("./..");
+const cap = require("chai-as-promised");
+chai.use(cap);
+
+const { idFromURL, getShortcutDetails, Shortcut } = require("./..");
 
 const id = "e04c0db9ef974178b60f94518daeb8f2";
 
-const apiMock = require("./apiMock.json");
-const nock = require("nock");
-
 describe("getShortcutDetails", () => {
-	beforeEach(() => {
-		nock("https://www.icloud.com")
-			.get("/shortcuts/api/records/" + id)
-			.reply(200, apiMock);
+	it("resolves to a Shortcut", () => {
+		assert.eventually.instanceOf(getShortcutDetails(id), Shortcut);
 	});
-
-	it("equal response to mock", () => {
-		return getShortcutDetails(id)
-			.then(shortcut => {
-				assert.strictEqual(JSON.stringify(shortcut.response), JSON.stringify(apiMock));
-			});
+	it("rejects when id is not string", () => {
+		assert.isRejected(getShortcutDetails(1337), TypeError);
+		assert.isRejected(getShortcutDetails({}), TypeError);
 	});
-
+	it("rejects if shortcut not found", () => {
+		assert.isRejected(getShortcutDetails("shoutoutToHacksore"), Error);
+	});
 });
 
 describe("idFromURL", () => {
-
 	describe("return type", () => {
 		it("returns string when valid", () => {
 			assert.isString(idFromURL(id));
