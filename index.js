@@ -1,6 +1,7 @@
 const { URL } = require("url");
 
 const got = require("got");
+const bplist = require("bplist-parser");
 
 /**
  * The base URL to the API for getting a shortcut.
@@ -13,6 +14,123 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
  * @type {string}
  */
 const baseLink = "https://www.icloud.com/shortcuts/";
+
+
+/**
+ * A single action in a shortcut.
+ */
+class Action {
+	constructor(action) {
+		/**
+		 * A namespace of the action.
+		 * @type {string}
+		 */
+		this.identifier = action.WFWorkflowActionIdentifier;
+
+		/**
+		 * An object denoting a shortcut action.
+		 * The properties in this object are not renamed and follow the Apple naming convention.
+		 * @type {Object[]}
+		 */
+		this.parameters = action.WFWorkflowActionParameters;
+	}
+}
+
+/**
+ * A single question to be asked when importing a shortcut into the Shortcuts app.
+ */
+class ImportQuestion {
+	constructor(question) {
+		/**
+		 * An unknown property.
+		 * @type {string}
+		 */
+		this.parameterKey = question.ParameterKey;
+
+		/**
+		 * The category of the question.
+		 * @type {string}
+		 */
+		this.category = question.Category;
+
+		/**
+		 * The action index of the question.
+		 * @type {number}
+		 */
+		this.actionIndex = question.ActionIndex;
+
+		/**
+		 * The question to be asked.
+		 * @type {string}
+		 */
+		this.text = question.Text;
+
+		/**
+		 * The default value for the question to be asked.
+		 * @type {string}
+		 */
+		this.defaultValue = question.DefaultValue;
+	}
+}
+
+/**
+ * The shortcut file.
+ */
+class ShortcutMetadata {
+	constructor(metadata) {
+		const minVer = metadata.WFWorkflowMinimumClientVersion;
+
+		/**
+		 * Details of the client used to create this shortcut.
+		 * @property {?number} minimumVersion The minimum build number of Shortcuts usable to manage this shortcut.
+		 * @property {string} release The release of Shortcuts that was used to manage this shortcut.
+		 * @property {number} version The build number of Shortcuts that was used to managed this shortcut.
+		 */
+		this.client = {
+			minimumVersion: minVer ? parseInt(minVer) : null,
+			release: metadata.WFWorkflowClientRelease,
+			version: parseInt(metadata.WFWorkflowClientVersion),
+		};
+
+		const imgData = metadata.WFWorkflowIcon.WFWorkflowIconImageData;
+
+		/**
+		 * Details of the icon of this shortcut.
+		 * @property {number} color The color of the shortcut's icon, with transparency.
+		 * @property {number} glyph The ID of the glyph.
+		 * @property {?Buffer} imageData The base64 data that makes up the custom image.
+		 */
+		this.icon = {
+			color: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
+			glyph: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
+			imageData: imgData.length >= 0 ? Buffer.from(imgData, "base64") : null,
+		};
+
+		/**
+		 * The user-specified name of the shortcut.
+		 * @type {ImportQuestion[]}
+		 */
+		this.importQuestions = metadata.WFWorkflowImportQuestions.map(question => new ImportQuestion(question));
+
+		/**
+		 * An unknown property.
+		 * @type {string[]}
+		 */
+		this.types = metadata.WFWorkflowTypes;
+
+		/**
+		 * A list of actions that the shortcut performs.
+		 * @type {Action[]}
+		 */
+		this.actions = metadata.WFWorkflowActions.map(action => new Action(action));
+
+		/**
+		 * A list of services that the shortcut uses.
+		 * @type {string[]}
+		 */
+		this.inputContentItemClasses = metadata.WFWorkflowInputContentItemClasses;
+	}
+}
 
 /**
  * A regular expression to match a single shortcut ID.
@@ -52,8 +170,8 @@ class Shortcut {
 
 		/**
 		 * The URL to download the shortcut as a PLIST.
-     * @type {string}
-     */
+		 * @type {string}
+		 */
 		this.downloadURL = data.fields.shortcut.value.downloadURL;
 
 		/**
@@ -79,6 +197,25 @@ class Shortcut {
 		 * @type {string}
 		 */
 		this.id = id;
+
+	}
+
+	/**
+	 * Downloads and parses the shortcut's metadata.
+	 * @returns {Promise<ShortcutMetadata>} An object with all the metadata about the shortcut.
+	 */
+	getMetadata() {
+		return new Promise((resolve, reject) => {
+			got(this.downloadURL, {
+				encoding: null,
+			}).then(response => {
+				const buffer = Buffer.from(response.body);
+				const json = bplist.parseBuffer(buffer);
+
+				const metadata = new ShortcutMetadata(json[0]);
+				resolve(metadata);
+			}).catch(reject);
+		});
 	}
 
 	/**
@@ -162,7 +299,10 @@ function idFromURL(url = "https://example.org", allowSingle = true) {
 }
 
 module.exports = {
+	Action,
+	ImportQuestion,
 	Shortcut,
+	ShortcutMetadata,
 	getShortcutDetails,
 	idFromURL,
 	singleIDRegex,
