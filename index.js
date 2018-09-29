@@ -165,4 +165,5 @@ module.exports = {
 	Shortcut,
 	getShortcutDetails,
 	idFromURL,
+	singleIDRegex,
 };
