@@ -31,6 +31,6 @@
 	},
 	"scripts": {
 		"lint": "eslint \"./**/*.js\"",
-		"test": "mocha test/test.js"
+		"test": "mocha tests/test.js"
 	}
 }
