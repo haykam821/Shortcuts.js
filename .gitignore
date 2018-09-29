@@ -59,9 +59,3 @@ typings/
 
 # next.js build output
 .next
-
-# test file
-test.js
-
-# ignore eslint ignore
-.eslintignore
