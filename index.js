@@ -15,6 +15,12 @@ const baseURL = "https://www.icloud.com/shortcuts/api/records/";
 const baseLink = "https://www.icloud.com/shortcuts/";
 
 /**
+ * A regular expression to match a single shortcut ID.
+ * @type {RegExp}
+ */
+const singleIDRegex = /^[0-9A-F]{32}$/i;
+
+/**
  * A shortcut.
  */
 class Shortcut {
@@ -91,32 +97,64 @@ class Shortcut {
  */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
+		// Reject if the ID wasn't a string.
+		if (typeof id !== "string") {
+			const error = new TypeError("The ID must be a string.");
+			error.code = "SHORTCUT_ID_NOT_STRING";
+
+			return reject(error);
+		}
+
 		got(baseURL + id, {
 			json: true,
 		}).then(response => {
-			resolve(new Shortcut(response.body, id));
+			const body = response.body;
+
+			// Reject if the shortcut was not found.
+			if (body.error) {
+				const error = new Error("API error: " + error.reason);
+				error.code = "ICLOUD_API_ERROR";
+
+				return reject(error);
+			}
+
+			return resolve(new Shortcut(response.body, id));
 		}).catch(reject);
 	});
 }
 
 /**
+ * A list of hosts usable in a shortcut URL.
+ */
+const hosts = [
+	"www.icloud.com",
+	"icloud.com",
+];
+
+/**
  * Gets a shortcut ID from its URL.
  * @param {string} url The landing page URL of a shortcut.
- * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL.
+ * @param {boolean} allowSingle If true, allows the ID by itself.
+ * @returns {(boolean|string)} The ID, or false if unparsable or not a shortcut URL or shortcut ID.
  */
-function idFromURL(url = "https://example.org") {
+function idFromURL(url = "https://example.org", allowSingle = true) {
 	try {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
 
-		if (parsedUrl.host === "www.icloud.com" && path[0] === "shortcuts") {
+		if (hosts.includes(parsedUrl.host) && path[0] === "shortcuts") {
 			return path[1];
 		} else {
 			return false;
 		}
 	} catch (error) {
 		if (error.code === "ERR_INVALID_URL") {
-			return false;
+			if (allowSingle) {
+				const matched = url.match(singleIDRegex);
+				return matched === null ? false : matched[0];
+			} else {
+				return false;
+			}
 		} else {
 			throw error;
 		}
@@ -127,4 +165,5 @@ module.exports = {
 	Shortcut,
 	getShortcutDetails,
 	idFromURL,
+	singleIDRegex,
 };
