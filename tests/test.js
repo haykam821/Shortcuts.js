@@ -6,7 +6,7 @@ const assert = chai.assert;
 const cap = require("chai-as-promised");
 chai.use(cap);
 
-const { idFromURL, getShortcutDetails, Shortcut, singleIDRegex } = require("./..");
+const { idFromURL, getShortcutDetails, Shortcut, singleIDRegex, ShortcutMetadata } = require("./..");
 
 const id = "e04c0db9ef974178b60f94518daeb8f2";
 
@@ -46,6 +46,16 @@ describe("getShortcutDetails", () => {
 		});
 		it("rejects if shortcut not found", () => {
 			assert.isRejected(getShortcutDetails("shoutoutToHacksore"), Error);
+		});
+	});
+});
+
+describe("getShortcutDetails.getMetadata", () => {
+	describe("resolutions", () => {
+		it("resolves to a ShortcutMetadata", () => {
+			getShortcutDetails(id).then(shortcut => {
+				assert.eventually.instanceOf(shortcut.getMetadata(), ShortcutMetadata);
+			});
 		});
 	});
 });
