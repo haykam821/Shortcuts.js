@@ -63,57 +63,57 @@ catch(err){
 
 ## Shortcut API
 
-`getShortcutDetails(String)` -> Promise
+`getShortcutDetails(String)` ⟶ Promise
 
 Downloads and parses the shortcut's metadata.
 
-`idFromURL(String)` -> [Boolean|String]
+`idFromURL(String)` ⟶ [Boolean|String]
 
 Gets a shortcut ID from its URL.
 
 #
 ### `Shortcut` properties and methods
 
-`getMetadata()` -> Promise
+`getMetadata()` ⟶ Promise
 
 Downloads and parses the shortcut's metadata.
 
-`name` -> String
+`name` ⟶ String
 
 The user-specified name of the shortcut.
 
-`longDescription` -> String
+`longDescription` ⟶ String
 
 The long description of the shortcut.
 This does not seem to be settable by users.
 
-`creationDate` -> Date
+`creationDate` ⟶ Date
 
 The date that the shortcut was created.
 
 
-`modificationDate` -> Date
+`modificationDate` ⟶ Date
 
 The date that the shortcut was last modified on.
 
-`downloadURL` -> String
+`downloadURL` ⟶ String
 
 The URL to download the shortcut as a PLIST
 
 
-`icon` -> Object
+`icon` ⟶ Object
 
 Details of the icon of this shortcut.
 
 
-`response` -> Object
+`response` ⟶ Object
 
 The full API response.
 
-`id` -> String
+`id` ⟶ String
 
 The ID of the shortcut.
 
-`getLink()` -> String
+`getLink()` ⟶ String
 
 Gets the shortcut's landing page URL.
