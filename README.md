@@ -9,6 +9,13 @@ A simple library for Apple's Shortcuts.
 ## Installation
 `npm install shortcuts.js`
 
+## Quick Reference
+* [Shortcut Methods](#shortcut-api)
+* [Shortcut Properties](#shortcut-properties-and-methods)
+* [ShortcutMetadata Class](#shortcutmetadata-properties)
+* [Action Class](#action-properties)
+* [ImportQuestion Class](#importquestion-properties)
+
 ## Examples
 
 ### Promise chain
@@ -62,8 +69,9 @@ catch(err){
 ```
 
 ## Shortcut API
+These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
-`getShortcutDetails(String)` ⟶ Promise
+`getShortcutDetails(String)` ⟶ Promise<Shortcut>
 
 Downloads and parses the shortcut's metadata.
 
@@ -72,11 +80,8 @@ Downloads and parses the shortcut's metadata.
 Gets a shortcut ID from its URL.
 
 #
-### `Shortcut` properties and methods
-
-`getMetadata()` ⟶ Promise
-
-Downloads and parses the shortcut's metadata.
+## `Shortcut` properties and methods
+This is what `getShortcutDetails()` promise will resolve with.
 
 `name` ⟶ String
 
@@ -91,7 +96,6 @@ This does not seem to be settable by users.
 
 The date that the shortcut was created.
 
-
 `modificationDate` ⟶ Date
 
 The date that the shortcut was last modified on.
@@ -100,11 +104,9 @@ The date that the shortcut was last modified on.
 
 The URL to download the shortcut as a PLIST
 
-
 `icon` ⟶ Object
 
 Details of the icon of this shortcut.
-
 
 `response` ⟶ Object
 
@@ -117,3 +119,75 @@ The ID of the shortcut.
 `getLink()` ⟶ String
 
 Gets the shortcut's landing page URL.
+
+`getMetadata()` ⟶ Promise<ShortcutMetadata>
+
+Downloads and parses the shortcut's metadata.
+
+#
+## `ShortcutMetadata` properties
+
+The shortcut file with all the properties parsed into a custom class. The object will be found after calling `getMetadata()` on a shortcut.
+
+`client` ⟶ Object
+
+Details of the client used to create this shortcut.
+
+`icon` ⟶ Object
+
+Details of the icon of this shortcut.
+
+`importQuestions` ⟶ ImportQuestion[]
+
+The user-specified name of the shortcut.
+
+`types` ⟶ String[]
+
+An unknown property.
+
+`actions` ⟶ Action[]
+
+A list of actions that the shortcut performs.
+
+`inputContentItemClasses` ⟶ String[]
+
+A list of services that the shortcut uses.
+
+#
+## `Action` properties
+
+A single action in a shortcut. The object will be found in the `ShortcutMetadata.actions` property.
+
+`identifier` ⟶ String
+
+A namespace of the action.
+
+`parameters` ⟶ Object
+
+An object denoting a shortcut action. The properties in this object are not renamed and follow the Apple naming convention.
+
+
+#
+## `ImportQuestion` properties
+
+A single question to be asked when importing a shortcut into the Shortcuts app. The object will be found in the `ShortcutMetadata.importQuestions` property.
+
+`parameterKey` ⟶ String
+
+An unknown property.
+
+`category` ⟶ String
+
+The category of the question.
+
+`actionIndex` ⟶ Number
+
+The action index of the question.
+
+`text` ⟶ String
+
+The question to be asked.
+
+`defaultValue` ⟶ String
+
+The default value for the question to be asked.
