@@ -12,9 +12,9 @@ A simple library for Apple's Shortcuts.
 ## Quick Reference
 * [Shortcut Methods](#shortcut-api)
 * [Shortcut Properties](#shortcut-properties-and-methods)
-* [ShortcutMetadata Class](#shortcutmetadata-properties)
-* [Action Class](#action-properties)
-* [ImportQuestion Class](#importquestion-properties)
+* [ShortcutMetadata Properties](#shortcutmetadata-properties)
+* [Action Properties](#action-properties)
+* [ImportQuestion Properties](#importquestion-properties)
 
 ## Examples
 
@@ -71,7 +71,7 @@ catch(err){
 ## Shortcut API
 These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
-`getShortcutDetails(String)` ⟶ Promise<Shortcut>
+`getShortcutDetails(String)` ⟶ Promise\<Shortcut>
 
 Downloads and parses the shortcut's metadata.
 
@@ -120,7 +120,7 @@ The ID of the shortcut.
 
 Gets the shortcut's landing page URL.
 
-`getMetadata()` ⟶ Promise<ShortcutMetadata>
+`getMetadata()` ⟶ Promise\<ShortcutMetadata>
 
 Downloads and parses the shortcut's metadata.
 
