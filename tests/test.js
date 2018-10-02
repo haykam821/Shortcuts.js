@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+/* eslint max-nested-callbacks: 0 */
 
 const chai = require("chai");
 const assert = chai.assert;
@@ -6,11 +7,11 @@ const assert = chai.assert;
 const cap = require("chai-as-promised");
 chai.use(cap);
 
-const { idFromURL, getShortcutDetails, Shortcut, singleIDRegex, ShortcutMetadata } = require("./..");
+const { idFromURL, getShortcutDetails, Shortcut, singleIDRegex, ShortcutMetadata, Action, ImportQuestion } = require("./..");
 
 const id = "e04c0db9ef974178b60f94518daeb8f2";
 
-describe("getShortcutDetails", () => {
+describe("getShortcutDetails()", () => {
 	describe("resolutions", () => {
 		const promise = getShortcutDetails(id);
 
@@ -50,17 +51,34 @@ describe("getShortcutDetails", () => {
 	});
 });
 
-describe("getShortcutDetails.getMetadata", () => {
+describe("<Shortcut>.getMetadata()", () => {
 	describe("resolutions", () => {
-		it("resolves to a ShortcutMetadata", () => {
-			getShortcutDetails(id).then(shortcut => {
+		it("resolves to an instance of ShortcutMetadata", () => {
+			return getShortcutDetails(id).then(shortcut => {
 				assert.eventually.instanceOf(shortcut.getMetadata(), ShortcutMetadata);
 			});
 		});
+
+		it("<ShortcutMetadata>.actions is an array of Action classes", () => {
+			return getShortcutDetails(id).then(shortcut => {
+				return shortcut.getMetadata();
+			}).then(metadata => metadata.actions.forEach(action => {
+				assert.instanceOf(action, Action);
+			}));
+		});
+
+		it("<ShortcutMetadata>.importQuestions is an array of ImportQuestion classes", () => {
+			return getShortcutDetails(id).then(shortcut => {
+				return shortcut.getMetadata();
+			}).then(metadata => metadata.importQuestions.forEach(question => {
+				return assert.eventually.instanceOf(question, ImportQuestion);
+			}));
+		});
+
 	});
 });
 
-describe("idFromURL", () => {
+describe("idFromURL()", () => {
 	describe("return type", () => {
 		it("returns string when valid", () => {
 			assert.isString(idFromURL(id));
