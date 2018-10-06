@@ -177,11 +177,13 @@ class Shortcut {
 		/**
 		 * Details of the icon of this shortcut.
 		 * @property {number} color The color of the shortcut's icon, with transparency.
+		 * @property {string} hexColor The hexadecimal color of the shortcut's icon, with transparency.
 		 * @property {string} downloadURL The URL to download the shortcut's icon.
 		 * @property {number} glyph The ID of the glyph.
 		 */
 		this.icon = {
 			color: data.fields.icon_color.value,
+			hexColor: data.fields.icon_color.value.toString(16),
 			downloadURL: data.fields.icon.value.downloadURL,
 			glyph: data.fields.icon_glyph.value,
 		};
