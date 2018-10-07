@@ -183,7 +183,7 @@ class Shortcut {
 		 */
 		this.icon = {
 			color: data.fields.icon_color.value,
-			hexColor: data.fields.icon_color.value.toString(16),
+			colorHex: data.fields.icon_color.value.toString(16).substring(0,6),
 			downloadURL: data.fields.icon.value.downloadURL,
 			glyph: data.fields.icon_glyph.value,
 		};
