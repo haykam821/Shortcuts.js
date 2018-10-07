@@ -7,7 +7,14 @@
 A simple library for Apple's Shortcuts. 
 
 ## Installation
-`npm install shortcuts.js`
+
+You can install this module with NPM:
+
+    npm install shortcuts.js
+
+If you prefer [Yarn](https://yarnpkg.com/), you can use that as well:
+
+    yarn add shortcuts.js
 
 ## Quick Reference
 * [Shortcut Methods](#shortcut-api)
