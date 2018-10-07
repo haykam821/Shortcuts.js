@@ -16,16 +16,14 @@ If you prefer [Yarn](https://yarnpkg.com/), you can use that as well:
 
     yarn add shortcuts.js
 
-## Quick Reference
-* [Shortcut Methods](#shortcut-api)
-* [Shortcut Properties](#shortcut-properties-and-methods)
-* [ShortcutMetadata Properties](#shortcutmetadata-properties)
-* [Action Properties](#action-properties)
-* [ImportQuestion Properties](#importquestion-properties)
-
 ## Examples
 
-### Promise chain
+Here are some examples so you can quickly get started with this library.
+
+### Promises
+
+This library uses native promises, which can be chained like in this example:
+
 ```javascript
 const shortcuts = require("shortcuts.js");
 
@@ -50,6 +48,9 @@ shortcuts.getShortcutDetails(id)
 ```
 
 ### async/await
+
+You can also use async/await functionality:
+
 ```javascript
 const shortcuts = require("shortcuts.js");
 
@@ -75,7 +76,22 @@ catch(err){
 }
 ```
 
-## Shortcut API
+## Documentation
+
+This is the documentation for Shortcuts.js.
+
+## Quick Reference
+
+Click any link below to quickly jump to its documentation:
+
+* [Library Methods](#main-api)
+* [Shortcut Properties](#shortcut-properties-and-methods)
+* [ShortcutMetadata Properties](#shortcutmetadata-properties)
+* [Action Properties](#action-properties)
+* [ImportQuestion Properties](#importquestion-properties)
+
+## Main API
+
 These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
 `getShortcutDetails(String)` ⟶ Promise\<Shortcut>
@@ -86,9 +102,9 @@ Downloads and parses the shortcut's metadata.
 
 Gets a shortcut ID from its URL.
 
-#
-## `Shortcut` properties and methods
-This is what `getShortcutDetails()` promise will resolve with.
+### `Shortcut` properties and methods
+
+This is what the `getShortcutDetails()` promise will resolve with.
 
 `name` ⟶ String
 
@@ -131,8 +147,7 @@ Gets the shortcut's landing page URL.
 
 Downloads and parses the shortcut's metadata.
 
-#
-## `ShortcutMetadata` properties
+### `ShortcutMetadata` properties
 
 The shortcut file with all the properties parsed into a custom class. The object will be found after calling `getMetadata()` on a shortcut.
 
@@ -160,8 +175,7 @@ A list of actions that the shortcut performs.
 
 A list of services that the shortcut uses.
 
-#
-## `Action` properties
+### `Action` properties
 
 A single action in a shortcut. The object will be found in the `ShortcutMetadata.actions` property.
 
@@ -174,8 +188,7 @@ A namespace of the action.
 An object denoting a shortcut action. The properties in this object are not renamed and follow the Apple naming convention.
 
 
-#
-## `ImportQuestion` properties
+### `ImportQuestion` properties
 
 A single question to be asked when importing a shortcut into the Shortcuts app. The object will be found in the `ShortcutMetadata.importQuestions` property.
 
