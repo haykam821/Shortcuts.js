@@ -94,13 +94,26 @@ Click any link below to quickly jump to its documentation:
 
 These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
-[`getShortcutDetails(String)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L235) ⟶ Promise\<Shortcut>
+### [`getShortcutDetails(id)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L235)
 
-Downloads and parses the shortcut's metadata.
+This method gets the details of a shortcut.
 
-[`idFromURL(String)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L277) ⟶ [Boolean|String]
+The `id` argument is required and specifies the public ID of the shortcut to fetch. It can be found in the shareable URLs, in the form of `https://icloud.com/shortcuts/<id>`.
+
+This method immediately returns a promise, which will resolve to a `Shortcut`.
+
+### [`idFromURL(url, allowSingle)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L277)
 
 Gets a shortcut ID from its URL.
+
+This method returns either `false` or a string. If it returns a string, that string will be the parsed ID from the URL, or `false` if the URL was unable to be parsed.
+
+The `url` is a string that can take on multiple forms:
+
+  * Just the ID (`903110dea9a944f48fef9e94317fb686`)
+  * An iCloud link (`http://icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686`)
+  * An iCloud link with the `https` protocol (`https://icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686`)
+  * An iCloud link with the `www` subdomain (`http://www.icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686`)
 
 ### [`Shortcut`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L144) properties and methods
 
