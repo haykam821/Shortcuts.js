@@ -94,15 +94,15 @@ Click any link below to quickly jump to its documentation:
 
 These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
-`getShortcutDetails(String)` ⟶ Promise\<Shortcut>
+[`getShortcutDetails(String)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L235) ⟶ Promise\<Shortcut>
 
 Downloads and parses the shortcut's metadata.
 
-`idFromURL(String)` ⟶ [Boolean|String]
+[`idFromURL(String)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L277) ⟶ [Boolean|String]
 
 Gets a shortcut ID from its URL.
 
-### `Shortcut` properties and methods
+### [`Shortcut`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L144) properties and methods
 
 This is what the `getShortcutDetails()` promise will resolve with.
 
@@ -147,7 +147,7 @@ Gets the shortcut's landing page URL.
 
 Downloads and parses the shortcut's metadata.
 
-### `ShortcutMetadata` properties
+### [`ShortcutMetadata`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L79) properties
 
 The shortcut file with all the properties parsed into a custom class. The object will be found after calling `getMetadata()` on a shortcut.
 
@@ -175,7 +175,7 @@ A list of actions that the shortcut performs.
 
 A list of services that the shortcut uses.
 
-### `Action` properties
+### [`Action`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L22) properties
 
 A single action in a shortcut. The object will be found in the `ShortcutMetadata.actions` property.
 
@@ -188,7 +188,7 @@ A namespace of the action.
 An object denoting a shortcut action. The properties in this object are not renamed and follow the Apple naming convention.
 
 
-### `ImportQuestion` properties
+### [`ImportQuestion`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L42) properties
 
 A single question to be asked when importing a shortcut into the Shortcuts app. The object will be found in the `ShortcutMetadata.importQuestions` property.
 
