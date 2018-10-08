@@ -16,64 +16,48 @@ If you prefer [Yarn](https://yarnpkg.com/), you can use that as well:
 
     yarn add shortcuts.js
 
-## Examples
+## Usage
 
-Here are some examples so you can quickly get started with this library.
+First, you must require this library:
 
-### Promises
-
-This library uses native promises, which can be chained like in this example:
-
-```javascript
+```js
 const shortcuts = require("shortcuts.js");
-
-// Get id from the iCloud link
-const id = shortcuts.idFromURL("https://www.icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686");
-
-let resolvedShortcut;
-// Lookup the shortcut via its ID
-shortcuts.getShortcutDetails(id)
-.then(shortcut => {
-    resolvedShortcut = shortcut;
-    // Pass the metadata promise down the chain
-    return shortcut.getMetadata();
-})
-.then(metadata => {
-    console.log(resolvedShortcut);
-    console.log(metadata);
-})
-.catch(err => {
-    console.log(err);
-})
 ```
 
-### async/await
+Afterwards, you can use its methods. One of the simplest things you can do with this library is grab the ID from an iCloud URL. This is useful for later methods such as getting a shortcut's details from a user-submitted value, which might not always be just the ID.
 
-You can also use async/await functionality:
-
-```javascript
-const shortcuts = require("shortcuts.js");
-
-// Get the id from the iCloud link
+```js
+// Get an ID from a iCloud URL
 const id = shortcuts.idFromURL("https://www.icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686");
+```
 
-async function myAsyncMethod(){
-    // Lookup the shortcut via its ID
+This example uses promise chaining to get shortcut metadata from an iCloud URL:
+
+```
+// Chain promises to get a shortcut's metadata
+shortcuts.getShortcutDetails(id).then(shortcut => {
+    console.log(`Hi, I'm ${id}! What's your name?`);
+    return shortcut.getMetadata();
+}).then(metadata => {
+    console.log(`I have ${metadata.actions.length} actions! How cool is that?`);
+}).catch(error => {
+    console.log(`${error.code}? How could this happen!`);
+});
+```
+
+You can also use [async/await](https://javascript.info/async-await) to simplify things:
+
+```
+async function getBasicInfo() {
     const shortcut = await shortcuts.getShortcutDetails(id);
-
-    // Lookup the shortcut metadata
     const metadata = await shortcut.getMetadata();
-
-    console.log(shortcut);
-    console.log(metadata);
+    
+    return `Hi! I'm ${shortcut.name}. I have ${metadata.importQuestions.length} import questions, and I'm happy to be here. What's your name?`;
 }
 
-try {
-    myAsyncMethod();
-}
-catch(err){
-    console.log(err);
-}
+getBasicInfo().then(console.log).catch(error => {
+    console.log(`There was an error: ${error.code}. At least I can say that I tried...`);
+});
 ```
 
 ## Documentation
