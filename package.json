@@ -1,6 +1,6 @@
 {
 	"name": "shortcuts.js",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "A simple library for Apple's Shortcuts.",
 	"main": "index.js",
 	"repository": {
