@@ -10,11 +10,15 @@ A simple library for Apple's Shortcuts.
 
 You can install this module with NPM:
 
-    npm install shortcuts.js
+```shell
+npm install shortcuts.js
+```
 
 If you prefer [Yarn](https://yarnpkg.com/), you can use that as well:
 
-    yarn add shortcuts.js
+```shell
+yarn add shortcuts.js
+```
 
 ## Usage
 
@@ -33,7 +37,7 @@ const id = shortcuts.idFromURL("https://www.icloud.com/shortcuts/903110dea9a944f
 
 This example uses promise chaining to get shortcut metadata from an iCloud URL:
 
-```
+```js
 // Chain promises to get a shortcut's metadata
 shortcuts.getShortcutDetails(id).then(shortcut => {
     console.log(`Hi, I'm ${id}! What's your name?`);
@@ -47,7 +51,7 @@ shortcuts.getShortcutDetails(id).then(shortcut => {
 
 You can also use [async/await](https://javascript.info/async-await) to simplify things:
 
-```
+```js
 async function getBasicInfo() {
     const shortcut = await shortcuts.getShortcutDetails(id);
     const metadata = await shortcut.getMetadata();
