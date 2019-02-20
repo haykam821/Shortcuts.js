@@ -212,3 +212,7 @@ The question to be asked.
 `defaultValue` ⟶ String
 
 The default value for the question to be asked.
+
+## See also
+
+* [Shortcutify](https://github.com/haykam821/Shortcutify), the framework for building shortcuts with JavaScript.
