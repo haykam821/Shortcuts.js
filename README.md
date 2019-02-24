@@ -83,7 +83,7 @@ Click any link below to quickly jump to its documentation:
 
 These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
-### [`getShortcutDetails(id)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L235)
+### `getShortcutDetails(id)`
 
 This method gets the details of a shortcut.
 
@@ -91,7 +91,7 @@ The `id` argument is required and specifies the public ID of the shortcut to fet
 
 This method immediately returns a promise, which will resolve to a `Shortcut`.
 
-### [`idFromURL(url, allowSingle)`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L277)
+### `idFromURL(url, allowSingle)`
 
 Gets a shortcut ID from its URL.
 
@@ -104,7 +104,7 @@ The `url` is a string that can take on multiple forms:
   * An iCloud link with the `https` protocol (`https://icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686`)
   * An iCloud link with the `www` subdomain (`http://www.icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686`)
 
-### [`Shortcut`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L144) properties and methods
+### `Shortcut` properties and methods
 
 This is what the `getShortcutDetails()` promise will resolve with.
 
@@ -169,7 +169,7 @@ The ID of the glyph.
 
 The hexadecimal color of the shortcut's icon.
 
-### [`ShortcutMetadata`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L79) properties
+### `ShortcutMetadata` properties
 
 The shortcut file with all the properties parsed into a custom class. The object will be found after calling `getMetadata()` on a shortcut.
 
@@ -197,7 +197,7 @@ A list of actions that the shortcut performs.
 
 A list of services that the shortcut uses.
 
-### [`Action`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L22) properties
+### `Action` properties
 
 A single action in a shortcut. The object will be found in the `ShortcutMetadata.actions` property.
 
@@ -210,7 +210,7 @@ A namespace of the action.
 An object denoting a shortcut action. The properties in this object are not renamed and follow the Apple naming convention.
 
 
-### [`ImportQuestion`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L42) properties
+### `ImportQuestion` properties
 
 A single question to be asked when importing a shortcut into the Shortcuts app. The object will be found in the `ShortcutMetadata.importQuestions` property.
 
