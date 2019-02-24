@@ -132,6 +132,37 @@ class ShortcutMetadata {
 	}
 }
 
+/*
+ * A shortcut's icon.
+ */
+class ShortcutIcon {
+	constructor(color, icon, glyph) {
+		/**
+		 * The color of the shortcut's icon, with transparency.
+		 * @type {number}
+		 */
+		this.color = color.value,
+			
+		/**
+		 * The URL to download the shortcut's icon.
+		 * @type {string}
+		 */
+		this.downloadURL = icon.value.downloadURL;
+		
+		/**
+		 * The ID of the glyph.
+		 * @type {number}
+		 */
+		this.glyph = glyph.value;
+		
+		/**
+		 * The hexadecimal color of the shortcut's icon.
+		 * @type {string}
+		 */
+		this.hexColor: color.value.toString(16).substring(0, 6),
+	}
+}
+
 /**
  * A regular expression to match a single shortcut ID.
  * @type {RegExp}
@@ -176,17 +207,8 @@ class Shortcut {
 
 		/**
 		 * Details of the icon of this shortcut.
-		 * @property {number} color The color of the shortcut's icon, with transparency.
-		 * @property {string} downloadURL The URL to download the shortcut's icon.
-		 * @property {number} glyph The ID of the glyph.
-		 * @property {string} hexColor The hexadecimal color of the shortcut's icon.
 		 */
-		this.icon = {
-			color: data.fields.icon_color.value,
-			downloadURL: data.fields.icon.value.downloadURL,
-			glyph: data.fields.icon_glyph.value,
-			hexColor: data.fields.icon_color.value.toString(16).substring(0, 6),
-		};
+		this.icon = new ShortcutIcon(data.fields.icon_color, data.fields.icon,	data.fields.icon_glyph);
 
 		/**
 		 * The full API response.
