@@ -51,7 +51,7 @@ describe("getShortcutDetails()", () => {
 	});
 });
 
-describe("<Shortcut>.getMetadata()", () => {
+describe("Shortcut#getMetadata()", () => {
 	describe("resolutions", () => {
 		it("resolves to an instance of ShortcutMetadata", () => {
 			return getShortcutDetails(id).then(shortcut => {
@@ -59,7 +59,7 @@ describe("<Shortcut>.getMetadata()", () => {
 			});
 		});
 
-		it("<ShortcutMetadata>.actions is an array of Action classes", () => {
+		it("ShortcutMetadata#actions is an array of Action classes", () => {
 			return getShortcutDetails(id).then(shortcut => {
 				return shortcut.getMetadata();
 			}).then(metadata => metadata.actions.forEach(action => {
@@ -67,7 +67,7 @@ describe("<Shortcut>.getMetadata()", () => {
 			}));
 		});
 
-		it("<ShortcutMetadata>.importQuestions is an array of ImportQuestion classes", () => {
+		it("ShortcutMetadata#importQuestions is an array of ImportQuestion classes", () => {
 			return getShortcutDetails(id).then(shortcut => {
 				return shortcut.getMetadata();
 			}).then(metadata => metadata.importQuestions.forEach(question => {
