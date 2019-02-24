@@ -142,24 +142,24 @@ class ShortcutIcon {
 		 * @type {number}
 		 */
 		this.color = color.value,
-			
+
 		/**
 		 * The URL to download the shortcut's icon.
 		 * @type {string}
 		 */
 		this.downloadURL = icon.value.downloadURL;
-		
+
 		/**
 		 * The ID of the glyph.
 		 * @type {number}
 		 */
 		this.glyph = glyph.value;
-		
+
 		/**
 		 * The hexadecimal color of the shortcut's icon.
 		 * @type {string}
 		 */
-		this.hexColor: color.value.toString(16).substring(0, 6),
+		this.hexColor = color.value.toString(16).substring(0, 6);
 	}
 }
 
@@ -208,7 +208,7 @@ class Shortcut {
 		/**
 		 * Details of the icon of this shortcut.
 		 */
-		this.icon = new ShortcutIcon(data.fields.icon_color, data.fields.icon,	data.fields.icon_glyph);
+		this.icon = new ShortcutIcon(data.fields.icon_color, data.fields.icon, data.fields.icon_glyph);
 
 		/**
 		 * The full API response.
