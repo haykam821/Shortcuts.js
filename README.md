@@ -4,7 +4,20 @@
 [![npm](https://img.shields.io/npm/v/shortcuts.js.svg?style=popout&colorB=red)](https://www.npmjs.com/package/shortcuts.js)
 [![Travis (.com)](https://img.shields.io/travis/com/haykam821/Shortcuts.js.svg?style=popout)](https://travis-ci.com/haykam821/Shortcuts.js)
 
-A simple library for Apple's Shortcuts. 
+A simple library for Apple's Shortcuts.
+
+* [Shortcuts.js](#shortcutsjs)
+	* [Installation](#installation)
+	* [Usage](#usage)
+	* [Documentation](#documentation)
+		* [`getShortcutDetails(id)`](#getshortcutdetailsid)
+		* [`idFromURL(url, allowSingle)`](#idfromurlurl-allowsingle)
+		* [`Shortcut` properties and methods](#shortcut-properties-and-methods)
+		* [`ShortcutIcon` properties](#shortcuticon-properties)
+		* [`ShortcutMetadata` properties](#shortcutmetadata-properties)
+		* [`Action` properties](#action-properties)
+		* [`ImportQuestion` properties](#importquestion-properties)
+	* [See also](#see-also)
 
 ## Installation
 
@@ -67,21 +80,6 @@ getBasicInfo().then(console.log).catch(error => {
 ## Documentation
 
 This is the documentation for Shortcuts.js.
-
-## Quick Reference
-
-Click any link below to quickly jump to its documentation:
-
-* [Library Methods](#main-api)
-* [Shortcut Properties](#shortcut-properties-and-methods)
-* [ShortcutIcon Properties](#shortcuticon-properties)
-* [ShortcutMetadata Properties](#shortcutmetadata-properties)
-* [Action Properties](#action-properties)
-* [ImportQuestion Properties](#importquestion-properties)
-
-## Main API
-
-These are methods exposed on the libary. Once you include the libary you can call `shortcuts.<Method>(Param)` and expect the appropriate return value.
 
 ### `getShortcutDetails(id)`
 
@@ -149,7 +147,7 @@ Gets the shortcut's landing page URL.
 
 Downloads and parses the shortcut's metadata.
 
-## ShortcutIcon properties
+### `ShortcutIcon` properties
 
 A shortcut's icon.
 
