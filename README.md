@@ -74,6 +74,7 @@ Click any link below to quickly jump to its documentation:
 
 * [Library Methods](#main-api)
 * [Shortcut Properties](#shortcut-properties-and-methods)
+* [ShortcutIcon Properties](#shortcuticon-properties)
 * [ShortcutMetadata Properties](#shortcutmetadata-properties)
 * [Action Properties](#action-properties)
 * [ImportQuestion Properties](#importquestion-properties)
@@ -128,7 +129,7 @@ The date that the shortcut was last modified on.
 
 The URL to download the shortcut as a PLIST
 
-`icon` ⟶ Object
+`icon` ⟶ ShortcutIcon
 
 Details of the icon of this shortcut.
 
@@ -147,6 +148,26 @@ Gets the shortcut's landing page URL.
 `getMetadata()` ⟶ Promise\<ShortcutMetadata>
 
 Downloads and parses the shortcut's metadata.
+
+## ShortcutIcon properties
+
+A shortcut's icon.
+
+`color` ⟶ Number
+
+The color of the shortcut's icon, with transparency.
+
+`downloadURL` ⟶ String
+
+The URL to download the shortcut's icon.
+
+`glyph` ⟶ Number
+
+The ID of the glyph.
+
+`hexColor` ⟶ String
+
+The hexadecimal color of the shortcut's icon.
 
 ### [`ShortcutMetadata`](https://github.com/haykam821/Shortcuts.js/blob/743f032ccd63daa83c0ffd439002dd99a47c9a1f/index.js#L79) properties
 
