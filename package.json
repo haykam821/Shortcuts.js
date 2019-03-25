@@ -32,5 +32,9 @@
 	"scripts": {
 		"lint": "eslint \"./**/*.js\"",
 		"test": "mocha tests/test.js"
-	}
+	},
+	"keywords": [
+		"shortcuts",
+		"api"
+	]
 }
