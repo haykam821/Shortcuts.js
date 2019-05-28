@@ -1,9 +1,17 @@
 language: node_js
 node_js:
   - node
+before_script: npm install --only=dev
 script:
   - npm run lint
   - npm test
-branches:
-  only:
-    - master
+  - npm run docs
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB
+  keep_history: true
+  target_branch: gh-pages
+  local_dir: "./docs"
+  on:
+    branch: master
