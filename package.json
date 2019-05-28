@@ -27,11 +27,14 @@
 		"eslint-plugin-json": "^1.2.1",
 		"eslint-plugin-markdown": "^1.0.0-beta.6",
 		"eslint-plugin-unicorn": "^6.0.1",
+		"jsdoc": "^3.6.2",
+		"minami": "^1.2.3",
 		"mocha": "^5.2.0"
 	},
 	"scripts": {
 		"lint": "eslint \"./**/*.js\"",
-		"test": "mocha tests/test.js"
+		"test": "mocha tests/test.js",
+		"docs": "jsdoc ./index.js --destination ./docs -t node_modules/minami"
 	},
 	"keywords": [
 		"shortcuts",
