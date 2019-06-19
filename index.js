@@ -103,7 +103,7 @@ class ShortcutMetadata {
 		this.icon = {
 			color: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
 			glyph: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
-			imageData: imgData.length >= 0 ? Buffer.from(imgData, "base64") : null,
+			imageData: (imgData && imgData.length >= 0) ? Buffer.from(imgData, "base64") : null,
 		};
 
 		/**
