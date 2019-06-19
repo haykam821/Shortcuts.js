@@ -1,4 +1,45 @@
-const { URL } = require("url");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>index.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Action.html">Action</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ImportQuestion.html">ImportQuestion</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Shortcut.html">Shortcut</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shortcut.html#getLink">getLink</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Shortcut.html#getMetadata">getMetadata</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="ShortcutMetadata.html">ShortcutMetadata</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#baseLink">baseLink</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#baseURL">baseURL</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getShortcutDetails">getShortcutDetails</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#hosts">hosts</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#idFromURL">idFromURL</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#singleIDRegex">singleIDRegex</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { URL } = require("url");
 
 const got = require("got");
 const bplist = require("bplist-parser");
@@ -103,7 +144,7 @@ class ShortcutMetadata {
 		this.icon = {
 			color: metadata.WFWorkflowIcon.WFWorkflowIconStartColor,
 			glyph: metadata.WFWorkflowIcon.WFWorkflowIconGlyphNumber,
-			imageData: (imgData && imgData.length >= 0) ? Buffer.from(imgData, "base64") : null,
+			imageData: (imgData &amp;&amp; imgData.length >= 0) ? Buffer.from(imgData, "base64") : null,
 		};
 
 		/**
@@ -185,7 +226,7 @@ class Shortcut {
 		 * This does not seem to be settable by users.
 		 * @type {string}
 		 */
-		this.longDescription = data.fields.longDescription && data.fields.longDescription.value;
+		this.longDescription = data.fields.longDescription &amp;&amp; data.fields.longDescription.value;
 
 		/**
 		 * The date that the shortcut was created.
@@ -226,7 +267,7 @@ class Shortcut {
 
 	/**
 	 * Downloads and parses the shortcut's metadata.
-	 * @returns {Promise<ShortcutMetadata>} An object with all the metadata about the shortcut.
+	 * @returns {Promise&lt;ShortcutMetadata>} An object with all the metadata about the shortcut.
 	 */
 	getMetadata() {
 		return new Promise((resolve, reject) => {
@@ -254,7 +295,7 @@ class Shortcut {
 /**
  * Gets a shortcut from its ID.
  * @param {string} id The hexadecimal ID of the shortcut.
- * @returns {Promise<Shortcut>} The shortcut represented by an ID.
+ * @returns {Promise&lt;Shortcut>} The shortcut represented by an ID.
  */
 function getShortcutDetails(id) {
 	return new Promise((resolve, reject) => {
@@ -303,7 +344,7 @@ function idFromURL(url = "https://example.org", allowSingle = true) {
 		const parsedUrl = new URL(url);
 		const path = parsedUrl.pathname.split("/").splice(1);
 
-		if (hosts.includes(parsedUrl.host) && path[0] === "shortcuts") {
+		if (hosts.includes(parsedUrl.host) &amp;&amp; path[0] === "shortcuts") {
 			return path[1];
 		} else {
 			return false;
@@ -331,3 +372,22 @@ module.exports = {
 	idFromURL,
 	singleIDRegex,
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Wed Jun 19 2019 20:30:00 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
