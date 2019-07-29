@@ -8,34 +8,29 @@ A simple library for Apple's Shortcuts.
 
 ## Installation
 
-You can install this module with NPM:
+You can install this module with NPM or [Yarn](https://yarnpkg.com/):
 
 ```shell
 npm install shortcuts.js
-```
-
-If you prefer [Yarn](https://yarnpkg.com/), you can use that as well:
-
-```shell
 yarn add shortcuts.js
 ```
 
 ## Usage
 
-First, you must require this library:
+First, you must require the library:
 
 ```js
 const shortcuts = require("shortcuts.js");
 ```
 
-Afterwards, you can use its methods. One of the simplest things you can do with this library is grab the ID from an iCloud URL. This is useful for later methods such as getting a shortcut's details from a user-submitted value, which might not always be just the ID.
+Afterwards, you can use its methods. One of the simplest things you can do with this library is grab the ID from an iCloud URL. This is useful for more complex methods such as getting a shortcut's details from a user-submitted value, which might not always be just the ID.
 
 ```js
 // Get an ID from a iCloud URL
 const id = shortcuts.idFromURL("https://www.icloud.com/shortcuts/903110dea9a944f48fef9e94317fb686");
 ```
 
-This example uses promise chaining to get shortcut metadata from an iCloud URL:
+In addition, Shortcuts.js can retrieve metadata from the shortcut itself in addition to the overview information. This example uses promise chaining to get shortcut metadata from an iCloud URL:
 
 ```js
 // Chain promises to get a shortcut's metadata
@@ -49,13 +44,13 @@ shortcuts.getShortcutDetails(id).then(shortcut => {
 });
 ```
 
-You can also use [async/await](https://javascript.info/async-await) to simplify things:
+The following example uses [async/await](https://javascript.info/async-await) to achieve the same purpose:
 
 ```js
 async function getBasicInfo() {
     const shortcut = await shortcuts.getShortcutDetails(id);
     const metadata = await shortcut.getMetadata();
-    
+
     return `Hi! I'm ${shortcut.name}. I have ${metadata.importQuestions.length} import questions, and I'm happy to be here. What's your name?`;
 }
 
