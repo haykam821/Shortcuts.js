@@ -32,7 +32,7 @@
 		"mocha": "^5.2.0"
 	},
 	"scripts": {
-		"lint": "eslint \"./**/*.js\"",
+		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore",
 		"test": "mocha tests/test.js",
 		"docs": "jsdoc ./src/index.js --destination ./docs -t node_modules/minami"
 	},
